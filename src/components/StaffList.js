@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import dateFormat, { masks } from 'dateformat';
 
 class List extends Component {
     constructor(props) {
@@ -17,8 +18,8 @@ class List extends Component {
                 <Card>
                     <CardBody>
                         <CardTitle>Họ và tên: {staff.name}</CardTitle>
-                        <CardText>Ngày sinh: {staff.doB}</CardText>
-                        <CardText>Ngày vào công ty: {staff.startDate}</CardText>
+                        <CardText>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
+                        <CardText>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</CardText>
                         
                         <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
                         <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
