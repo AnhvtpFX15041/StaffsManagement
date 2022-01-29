@@ -19,7 +19,7 @@ class List extends Component {
                         <CardTitle>Họ và tên: {staff.name}</CardTitle>
                         <CardText>Ngày sinh: {staff.doB}</CardText>
                         <CardText>Ngày vào công ty: {staff.startDate}</CardText>
-                        <CardText>Phòng ban: {staff.department}</CardText>
+                        
                         <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
                         <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
                     </CardBody>
@@ -36,7 +36,7 @@ class List extends Component {
                 <div className="col-12 col-md-5 m-1">
                     <Card key={staff.id}
                         onClick={()=> this.onStaffSelect(staff)}>
-                        <CardText width="80%">{staff.name}</CardText>
+                        <CardText width="100%">{staff.name}</CardText>
                     </Card>
                 </div>
             );

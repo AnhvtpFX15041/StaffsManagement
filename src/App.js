@@ -12,7 +12,7 @@ class App extends Component {
       staffs: STAFFS
     };
   }
-  render() {
+  render(){
     return (
       <div>
         <Navbar dark color="primary">
