@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import List from './components/StaffList';
 import './App.css';
-import { STAFFS } from './shared/staffs.jsx';
+import { STAFFS, DEPARTMENTS } from './shared/staffs.jsx';
 
 class App extends Component {
   constructor(props) {

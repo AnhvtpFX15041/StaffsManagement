@@ -20,7 +20,7 @@ class List extends Component {
                         <CardTitle>Họ và tên: {staff.name}</CardTitle>
                         <CardText>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</CardText>
                         <CardText>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</CardText>
-                        
+                        <CardText>Phòng ban: {staff.department.name}</CardText>
                         <CardText>Số ngày nghỉ còn lại: {staff.annualLeave}</CardText>
                         <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
                     </CardBody>
@@ -34,7 +34,7 @@ class List extends Component {
     render() {
         const list = this.props.staffs.map((staff) => {
             return (
-                <div className="col-12 col-md-5 m-1">
+                <div className="col-12 col-md-6 m-0">
                     <Card key={staff.id}
                         onClick={()=> this.onStaffSelect(staff)}>
                         <CardText width="100%">{staff.name}</CardText>
@@ -48,7 +48,7 @@ class List extends Component {
                     {list}
                 </div>
                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
+                    <div className="col-12 col-md-6 m-0">
                         {this.renderStaff(this.state.selectedStaff)}
                     </div>
                 </div>
