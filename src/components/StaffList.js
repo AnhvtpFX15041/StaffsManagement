@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
 import dateFormat from 'dateformat';
 
 class List extends Component {
@@ -12,6 +12,9 @@ class List extends Component {
     }
     onStaffSelect(staff) {
         this.setState({ selectedStaff: staff});
+    }
+    onHideSelect(){
+        this.setState({ selectedStaff: null});
     }
     onBtn1Select(){
         this.setState({ selectedColumn: 6});
@@ -28,6 +31,7 @@ class List extends Component {
     renderStaff(staff) {
         if (staff != null)
             return(
+                <React.Fragment>
                 <Card>
                     <CardBody>
                         <CardTitle>Họ và tên: {staff.name}</CardTitle>
@@ -38,10 +42,14 @@ class List extends Component {
                         <CardText>Số ngày đã làm thêm: {staff.overTime}</CardText>
                     </CardBody>
                 </Card>
+                <div className="row">
+                    <Button color="danger" className="m-1" onClick={()=> this.onHideSelect()}>Ẩn thông tin</Button>
+                </div>
+                </React.Fragment>
             );
         else
             return(
-                <div></div>
+                <div>Bấm vào tên nhân viên để xem thông tin.</div>
             );
     }
     render() {
@@ -59,10 +67,10 @@ class List extends Component {
             <div className="container">
                 <React.Fragment>
                 <div className="row">
-                    <button onClick={()=> this.onBtn1Select()}>Chế độ xem 2 cột</button>
-                    <button onClick={()=> this.onBtn2Select()}>Chế độ xem 3 cột</button>
-                    <button onClick={()=> this.onBtn3Select()}>Chế độ xem 4 cột</button>
-                    <button onClick={()=> this.onBtn4Select()}>Chế độ xem 6 cột</button>
+                    <Button color="secondary" className="m-1" onClick={()=> this.onBtn1Select()}>Chế độ xem 2 cột</Button>
+                    <Button color="secondary" className="m-1" onClick={()=> this.onBtn2Select()}>Chế độ xem 3 cột</Button>
+                    <Button color="secondary" className="m-1" onClick={()=> this.onBtn3Select()}>Chế độ xem 4 cột</Button>
+                    <Button color="secondary" className="m-1" onClick={()=> this.onBtn4Select()}>Chế độ xem 6 cột</Button>
                 </div>
                 </React.Fragment>
                 <div className="row">
