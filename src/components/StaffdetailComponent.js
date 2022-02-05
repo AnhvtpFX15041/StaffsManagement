@@ -13,7 +13,7 @@ import dateFormat from 'dateformat';
                     <CardImg width="100%" top src={staff.image} alt={staff.name} />
                 </Card>
                 </div>
-                <div className="col-12 col-lg-9 col-md-8 m-1">
+                <div className="col-12 col-lg-8 col-md-7 m-1">
                         <h3>Họ và tên: {staff.name}</h3>
                         <p>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</p>
                         <p>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</p>

@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
                 <CardText>Mã nhân viên: {staff.id}</CardText>
                 <CardText>Hệ số lương: {staff.salaryScale}</CardText>
                 <CardText>Số giờ làm thêm: {staff.overTime}</CardText>
-                <CardText>Lương: {(staff.salaryScale)*basicSalary + (staff.overTime)*overTimeSalary}</CardText>
+                <CardText>Lương: {Math.round((staff.salaryScale)*basicSalary + (staff.overTime)*overTimeSalary)}</CardText>
                 </CardBody>
             </Card>
                 
