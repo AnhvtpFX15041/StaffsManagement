@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
+import { Card, CardText, CardBody, CardTitle, Button, CardImg } from 'reactstrap';
 import dateFormat from 'dateformat';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
         return(
             <Card>
                 <Link to = {`/staffs/${staff.id}`} >
-                    <CardImg  width="100%" src= {staff.image} alt = "staff.name" />
+                    <CardImg  width="100%" src= {staff.image} alt = {staff.name} />
                     <CardText>{staff.name}</CardText>
                 </Link>
             </Card>

@@ -13,7 +13,7 @@ class Main extends Component {
     super(props);
     this.state = {
       staffs: STAFFS,
-      department: DEPARTMENTS
+      departments: DEPARTMENTS
     };
   }
   onDishSelect(dishId) {
@@ -30,7 +30,7 @@ class Main extends Component {
                 <Header/>
                 <Switch>
                     <Route exact path="/staffs" component={() => <List staffs={this.state.staffs}/>}/>
-                    <Route path='/menu/:staffId' component={StaffWithId} />
+                    <Route path='/staffs/:staffId' component={StaffWithId} />
                     <Route exact path="/department" component={() => <DeptList departments={this.state.departments}/>}/>
                     <Route exact path="/salary" component={() => <SalaryList staffs={this.state.staffs}/>}/>
                     <Redirect to="/staffs" />
