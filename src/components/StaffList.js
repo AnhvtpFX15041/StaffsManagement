@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
             <Card>
                 <Link to = {`/staffs/${staff.id}`} >
                     <CardImg  width="100%" src= {staff.image} alt = {staff.name} />
-                    <CardText>{staff.name}</CardText>
+                    <CardText className="text-center">{staff.name}</CardText>
                 </Link>
             </Card>
                 
