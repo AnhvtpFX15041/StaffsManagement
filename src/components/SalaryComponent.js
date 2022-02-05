@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Card, CardText, CardBody, CardTitle, Button, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-import dateFormat from 'dateformat';
+import React from 'react';
+import { Card, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
     function RenderSalary({staff}) {

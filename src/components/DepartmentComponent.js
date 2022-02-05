@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import { Card, CardText, CardBody, CardTitle, Button } from 'reactstrap';
-import dateFormat from 'dateformat';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
 
     function RenderDept({dept}) {
         return(
@@ -17,7 +15,7 @@ import { Link } from 'react-router-dom';
     const DeptList = (props) =>{
         const list = props.departments.map((dept) => {
             return (
-                <div className="col-12 col-md-6 col-lg-4 m-0 mt-1">
+                <div className="col-12 col-md-6 col-lg-4 m-0 mt-3">
                     <RenderDept dept = {dept}/>
                 </div>
             );

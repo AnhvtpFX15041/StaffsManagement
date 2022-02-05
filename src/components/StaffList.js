@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { Card, CardText, CardBody, CardTitle, Button, CardImg } from 'reactstrap';
-import dateFormat from 'dateformat';
+import React from 'react';
+import { Card, CardText, CardImg } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
     function RenderStaff({staff}) {
