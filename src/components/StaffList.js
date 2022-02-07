@@ -22,7 +22,6 @@ import { Link } from 'react-router-dom';
         }
         const search =(e)=>{
             e.preventDefault();
-            console.log('Hello');
             setStaffs(props.staffs.filter((staff) =>{ return staff.name == `${searchText}`;}))
         }
         const list = staffs.map((staff) => {
@@ -36,12 +35,14 @@ import { Link } from 'react-router-dom';
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <div className="col-6">
-                          <h3>Nhân viên</h3> 
-                        </div>
-                        <div className="col-6">
-                          <input type="text" placeholder="Nguyễn Văn A" value={searchText} onChange={handleInputChange}/>
-                          <Button onClick={search}>Tìm nhân viên</Button>
+                        <div className="row">
+                            <div className="col-12 col-md-4 m-0">
+                                <h3 style ={{marginTop: 2}}>Nhân viên</h3> 
+                            </div>
+                            <div className="col-12 col-md-8 m-0" style={{display: 'flex', justifyContent: 'right'}}>
+                                <input style={{height: 37, marginTop: 5}} type="text" placeholder="Nguyễn Văn A" value={searchText} onChange={handleInputChange}/>
+                                <Button className="m-1" style ={{backgroundColor: '#0d6efd'}} onClick={search}>Tìm nhân viên</Button>
+                            </div>
                         </div>    
                         <hr />
                     </div>                

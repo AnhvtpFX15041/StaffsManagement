@@ -1,5 +1,5 @@
-import React from 'react';
-import { Card, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, { useState } from 'react';
+import { Card, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
     function RenderSalary({staff}) {
@@ -20,8 +20,20 @@ import { Link } from 'react-router-dom';
                 
             );
     }
-    const SalaryList = (props) =>{
-        const list = props.staffs.map((staff) => {
+    function SalaryList (props) {
+        const[staffs, setStaffs] = useState(props.staffs);
+        const basicSalary = 3000000;
+        const overTimeSalary = 200000;
+        const sortId = (e) => {
+            e.preventDefault();
+            setStaffs(props.staffs.sort((a,b) =>(a.id>b.id)?1:-1))
+        }
+        const sortSalary = (e) => {
+            e.preventDefault();
+            var newstaff = props.staffs.sort((a,b)=>((a.salaryScale)*basicSalary + (a.overTime)*overTimeSalary > (b.salaryScale)*basicSalary + (b.overTime)*overTimeSalary)?1:-1);
+            setStaffs([...newstaff])
+        }
+        const list = staffs.map((staff) => {
             return (
                 <div className="col-12 col-md-6 col-lg-4 m-0 mt-1">
                     <RenderSalary staff = {staff}/>
@@ -31,10 +43,16 @@ import { Link } from 'react-router-dom';
         return (
             <div className="container">
                 <div className="row">
+                    <div className="col-12 col-md-4">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to="/staffs">Nhân viên</Link></BreadcrumbItem>
                         <BreadcrumbItem active>Bảng lương</BreadcrumbItem>
                     </Breadcrumb>
+                    </div>
+                    <div className="col-12 col-md-8" style={{textAlign: 'right'}}>
+                        <Button className="m-1" style ={{backgroundColor: '#0d6efd'}} onClick={sortId}>Sắp xếp theo mã nhân viên</Button>
+                        <Button className="m-1" style ={{backgroundColor: '#0d6efd'}} onClick={sortSalary}>Sắp xếp theo mức lương</Button>
+                    </div>
                 </div>
                 <div className="row">
                     {list}
