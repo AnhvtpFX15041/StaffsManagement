@@ -10,9 +10,8 @@ import { Link } from 'react-router-dom';
                     <CardImg  width="100%" src= {staff.image} alt = {staff.name} />
                     <CardText className="text-center">{staff.name}</CardText>
                 </Link>
-            </Card>
-                
-            );
+            </Card>  
+        );
     }
     function List (props) { 
         const [staffs, setStaffs] = useState(props.staffs);
