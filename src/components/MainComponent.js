@@ -13,6 +13,7 @@ class Main extends Component {
     super(props);
     this.state = {
       staffs: STAFFS,
+      staffs2: STAFFS,
       departments: DEPARTMENTS,
     };
   }
@@ -29,7 +30,7 @@ class Main extends Component {
                     <Route exact path="/staffs" component= {() => <List staffs={this.state.staffs}/>}/>
                     <Route path='/staffs/:staffId' component={StaffWithId} />
                     <Route exact path="/department" component={() => <DeptList departments={this.state.departments}/>}/>
-                    <Route exact path="/salary" component={() => <SalaryList staffs={this.state.staffs}/>}/>
+                    <Route exact path="/salary" component={() => <SalaryList staffs={this.state.staffs2}/>}/>
                     <Redirect to="/staffs" />
                 </Switch>
                 <Footer/>

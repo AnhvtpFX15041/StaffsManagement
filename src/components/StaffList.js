@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Card, CardText, CardImg, Button } from 'reactstrap';
+import React, { useState, useRef } from 'react';
+import { Card, CardText, CardImg, Button, Form, FormGroup, Label, Input, Col} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
     
@@ -15,17 +15,15 @@ import { Link } from 'react-router-dom';
     }
     function List (props) { 
         const [staffs, setStaffs] = useState(props.staffs);
-        const [searchText, setSearchText] = useState('');
-        const handleInputChange=(e)=>{
-            setSearchText(e.target.value);
-        }
+        const searchText = useRef(null);
         const search =(e)=>{
             e.preventDefault();
-            setStaffs(props.staffs.filter((staff) =>{ return staff.name == `${searchText}`;}))
+            const searchval = searchText.current.value.toLowerCase();
+            setStaffs(props.staffs.filter((staff) =>{ return staff.name.toLowerCase().indexOf(searchval)!==-1}));
         }
         const list = staffs.map((staff) => {
             return (
-                <div className="col-12 col-md-6 col-lg-2 m-0 mt-1">
+                <div key={staff.id} className="col-12 col-md-6 col-lg-2 m-0 mt-1">
                     <RenderStaff staff = {staff}/>
                 </div>
             );
@@ -38,10 +36,10 @@ import { Link } from 'react-router-dom';
                             <div className="col-12 col-md-4 m-0">
                                 <h3 style ={{marginTop: 2}}>Nhân viên</h3> 
                             </div>
-                            <div className="col-12 col-md-8 m-0" style={{display: 'flex', justifyContent: 'right'}}>
-                                <input style={{height: 37, marginTop: 5}} type="text" placeholder="Nguyễn Văn A" value={searchText} onChange={handleInputChange}/>
-                                <Button className="m-1" style ={{backgroundColor: '#0d6efd'}} onClick={search}>Tìm nhân viên</Button>
-                            </div>
+                            <Form onSubmit = {search} className="col-12 col-md-8 m-0" style={{display: 'flex', justifyContent: 'right'}}>
+                                <Input style = {{margin: 3}}type="text" placeholder="Nguyễn Văn A" innerRef={searchText}/>
+                                <Input style ={{backgroundColor: '#0d6efd', width: 'fit-content', color: 'white', margin: 3}} type="submit" value="Tìm"/>
+                            </Form>
                         </div>    
                         <hr />
                     </div>                
