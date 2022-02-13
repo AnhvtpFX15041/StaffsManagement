@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Card, CardText, CardImg, Button, Form, FormGroup, Label, Input, Col, ModalHeader, Modal, ModalBody} from 'reactstrap';
+import { Card, CardText, CardImg, Button, Form, FormGroup, Label, Input, Col, 
+    ModalHeader, Modal, ModalBody, ModalFooter} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -59,6 +60,61 @@ import { Link } from 'react-router-dom';
                 </div>
                 <Modal isOpen={isOpen} onHide={hideModal}>
                     <ModalHeader>Thêm nhân viên</ModalHeader>
+                    <ModalBody>
+                        <Form>
+                            <FormGroup row>
+                                <Label htmlFor="name" lg={4} md={4} sm={12}>Tên</Label>
+                                <Col lg={4} md={6} sm={12}>
+                                    <Input lg={4} md={6} sm={12} type="text" id="name" name="name"></Input>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="birth" lg={4} md={4} sm={12}>Ngày sinh</Label>
+                                <Col lg={4} md={6} sm={12}>
+                                    <Input type="date" id="birth" name="birth"></Input>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="enter" lg={4} md={4} sm={12}>Ngày vào công ty</Label>
+                                <Col lg={4} md={6} sm={12}>
+                                    <Input type="date" id="enter" name="enter"></Input>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="dept" lg={4} md={4} sm={12}>Phòng ban</Label>
+                                <Col lg={4} md={6} sm={12}>
+                                    <Input type="select">
+                                        <option>Sale</option>
+                                        <option>HR</option>
+                                        <option>Marketing</option>
+                                        <option>IT</option>
+                                        <option>Finance</option>
+                                    </Input>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="scale" lg={4} md={4} sm={12}>Hệ số lương</Label>
+                                <Col lg={4} md={6} sm={12}>
+                                    <Input type="text" id="scale" placeholder="1.0 -> 3.0" name="scale"></Input>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="leave" lg={4} md={4} sm={12}>Số ngày nghỉ còn lại</Label>
+                                <Col lg={4} md={6} sm={12}>
+                                    <Input type="text" id="leave" placeholder="1.0" name="leave"></Input>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="overtime" lg={4} md={4} sm={12}>Số ngày đã làm thêm</Label>
+                                <Col lg={4} md={6} sm={12}>
+                                    <Input type="text" id="overtime" placeholder="1.0" name="overtime"></Input>
+                                </Col>
+                            </FormGroup>
+                        </Form>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button>Thêm</Button>
+                    </ModalFooter>
                 </Modal>
             </div>
         )
