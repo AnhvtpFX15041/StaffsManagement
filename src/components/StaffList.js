@@ -16,40 +16,11 @@ import { Link } from 'react-router-dom';
         );
     }
     function AddStaff(props) {
-        const [staffs, setStaffs] = useState(props.staffs);
         const [isOpen, setIsOpen] = useState(false);
-        const [id, setId] = useState(props.staffs.length-1);
-        const [newStaff, setNewStaff] = useState({
-            staffname: '',
-            doB: '',
-            salaryScale: '',
-            startDate: '',
-            department: '',
-            annualLeave: '',
-            overTime: ''
-        });
-        const handleInputChange = (e) => {
-            const target = e.target;
-            const value = target.value;
-            const name = target.name
-            setNewStaff({
-                [name]: value
-            });
-            setId(id+1);
-        }
-        /*const newstaff = {
-            id: id,
-            name: state.staffname,
-            doB: state.doB,
-            salaryScale: state.salaryScale,
-            startDate: state.startDate,
-            department: state.department,
-            annualLeave: state.annualLeave,
-            overTime: state.overTime,
-            image: '/assets/images/alberto.png',
-        }*/
-        const themmoi = (e) => {
-            alert(newStaff.staffname);
+        const handleSubmit = (values) => {
+            props.addStaff(values);
+            values.preventDefault();
+            //console.log(newStaff);
         }
         const toggleModal =() =>{
             setIsOpen(!isOpen)
@@ -57,37 +28,34 @@ import { Link } from 'react-router-dom';
         return(
             <div>
                 <Button onClick={toggleModal} style = {{margin: 3, justifyContent: 'right'}}><i className="fa fa-plus"></i></Button>
-                <Modal isOpen={isOpen} onClose={toggleModal}>
-                    <ModalHeader>
+                <Modal isOpen={isOpen} toggle={toggleModal}>
+                    <ModalHeader toggle={toggleModal}>
                         <h5>Thêm nhân viên</h5>
-                        <button onClick={toggleModal} class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
                     </ModalHeader>
                     <ModalBody>
-                        <Form onSubmit={themmoi}>
+                        <Form onSubmit={(values) => {handleSubmit(values)}}>
                             <FormGroup row>
                                 <Label htmlFor="name" lg={4} md={4} sm={12}>Tên</Label>
                                 <Col lg={4} md={6} sm={12}>
-                                    <Input lg={4} md={6} sm={12} type="text" id="name" name="staffname" value={newStaff.staffname} onChange={handleInputChange}></Input>
+                                    <Input lg={4} md={6} sm={12} type="text" id="name" name="staffname" ></Input>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor="birth" lg={4} md={4} sm={12}>Ngày sinh</Label>
                                 <Col lg={4} md={6} sm={12}>
-                                    <Input type="date" id="birth" name="doB" value={newStaff.doB} onChange={handleInputChange}></Input>
+                                    <Input type="date" id="birth" name="doB" ></Input>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor="enter" lg={4} md={4} sm={12}>Ngày vào công ty</Label>
                                 <Col lg={4} md={6} sm={12}>
-                                    <Input type="date" id="enter" value={newStaff.startDate} onChange={handleInputChange} name="startDate"></Input>
+                                    <Input type="date" id="enter" name="startDate"></Input>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor="dept" lg={4} md={4} sm={12}>Phòng ban</Label>
                                 <Col lg={4} md={6} sm={12}>
-                                    <Input type="select" value={newStaff.department}>
+                                    <Input type="select" name="department">
                                         <option value="Dept01">Sale</option>
                                         <option value="Dept02">HR</option>
                                         <option value="Dept03">Marketing</option>
@@ -99,19 +67,19 @@ import { Link } from 'react-router-dom';
                             <FormGroup row>
                                 <Label htmlFor="scale" lg={4} md={4} sm={12}>Hệ số lương</Label>
                                 <Col lg={4} md={6} sm={12}>
-                                    <Input type="text" id="scale" placeholder="1.0 -> 3.0" name="salaryScale" value={newStaff.salaryScale} onChange={handleInputChange}></Input>
+                                    <Input type="text" id="scale" placeholder="1.0 -> 3.0" name="salaryScale"></Input>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor="leave" lg={4} md={4} sm={12}>Số ngày nghỉ còn lại</Label>
                                 <Col lg={4} md={6} sm={12}>
-                                    <Input type="text" id="leave" placeholder="1.0" name="annualLeave" value={newStaff.annualLeave} onChange={handleInputChange}></Input>
+                                    <Input type="text" id="leave" placeholder="1.0" name="annualLeave"></Input>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor="overtime" lg={4} md={4} sm={12}>Số ngày đã làm thêm</Label>
                                 <Col lg={4} md={6} sm={12}>
-                                    <Input type="text" id="overtime" placeholder="1.0" name="overTime" value={newStaff.overTime} onChange={handleInputChange}></Input>
+                                    <Input type="text" id="overtime" placeholder="1.0" name="overTime"></Input>
                                 </Col>
                             </FormGroup>
                             <Input type="submit" value="Thêm"/>
@@ -143,7 +111,7 @@ import { Link } from 'react-router-dom';
                         <div className="row">
                             <div style={{display: 'flex'}} className="col-12 col-md-4 m-0">
                                 <h3 style ={{marginTop: 2}}>Nhân viên</h3> 
-                                <AddStaff staffs={props.staffs}/>
+                                <AddStaff addStaff={props.addStaff}/>
                             </div>
                             <Form onSubmit = {search} className="col-12 col-md-8 m-0" style={{display: 'flex', justifyContent: 'right'}}>
                                 <Input style = {{margin: 3}}type="text" placeholder="Nguyễn Văn A" innerRef={searchText}/>
