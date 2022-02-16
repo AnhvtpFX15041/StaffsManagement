@@ -18,12 +18,18 @@ import { Link } from 'react-router-dom';
         const [state, setState] = useState({
             staffname: '',
             doB: '',
-            startDate: ''
+            startDate: '',
+            salaryScale: '',
+            annualLeave: '',
+            overTime: ''
         });
         const [touch, setTouch] = useState({
             staffname: false,
             doB: false,
-            startDate: false
+            startDate: false,
+            salaryScale: false,
+            annualLeave: false,
+            overTime: false
         });
         const handleBlur = (field) => (evt) => {
             setTouch({...touch, [field]: true})
@@ -36,13 +42,17 @@ import { Link } from 'react-router-dom';
                 ...state,[name]: value
             })
         }
-        const validate = (staffname, doB, startDate) => {
+        const validate = (staffname, doB, startDate, salaryScale, annualLeave, overTime) => {
             const errors = {
                 staffname: '',
                 doB: '',
-                startDate: ''
+                startDate: '',
+                salaryScale: '',
+                annualLeave: '',
+                overTime: ''
             };
-            const regexdate = /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/
+            const regexdate = /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/;
+            const regexnumber = /^[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)$/;
             if (touch.staffname && staffname === ''){
                 errors.staffname='Yêu cầu nhập'
             } else if (touch.staffname && staffname.length < 2){
@@ -54,8 +64,17 @@ import { Link } from 'react-router-dom';
             if (touch.doB && !regexdate.test(doB)){
                 errors.doB='Yêu cầu nhập'
             };
-            if (touch.doB && !regexdate.test(startDate)){
+            if (touch.startDate && !regexdate.test(startDate)){
                 errors.startDate='Yêu cầu nhập'
+            };
+            if (touch.salaryScale && !regexnumber.test(salaryScale)){
+                errors.salaryScale='Yêu cầu nhập số'
+            };
+            if (touch.annualLeave && !regexnumber.test(annualLeave)){
+                errors.annualLeave='Yêu cầu nhập số'
+            };
+            if (touch.overTime && !regexnumber.test(overTime)){
+                errors.overTime='Yêu cầu nhập số'
             };
             return errors;
         }
@@ -66,10 +85,10 @@ import { Link } from 'react-router-dom';
         const toggleModal =() =>{
                 setIsOpen(!isOpen)
         };
-        const errors = validate(state.staffname, state.doB, state.startDate);
+        const errors = validate(state.staffname, state.doB, state.startDate, state.salaryScale, state.annualLeave, state.overTime);
         return(
             <div>
-                <Button onClick={toggleModal} style = {{marginTop: 3, marginLeft: 0}}><i className="fa fa-plus"></i></Button>
+                <Button  onClick={toggleModal} style = {{marginTop: 3, marginLeft: 0}}><i className="fa fa-plus"></i></Button>
                 <Modal isOpen={isOpen}>
                     <ModalHeader toggle={toggleModal}>
                         <h5>Thêm nhân viên</h5>
@@ -130,22 +149,41 @@ import { Link } from 'react-router-dom';
                                 <Label htmlFor="scale" lg={4} md={4} sm={12}>Hệ số lương</Label>
                                 <Col lg={8} md={8} sm={12}>
                                     <Input type="text" id="scale" placeholder="1.0 -> 3.0" 
-                                    defaultValue = "1" name="salaryScale" min="1" max="3"></Input>
+                                        defaultValue = "1" name="salaryScale" required
+                                        onBlur = {handleBlur('salaryScale')}
+                                        onChange = {handleInputChange} 
+                                        valid = {errors.salaryScale===''}
+                                        invalid = {errors.salaryScale!==''}
+                                    />
+                                    <FormFeedback>{errors.salaryScale}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor="leave" lg={4} md={4} sm={12}>Số ngày nghỉ còn lại</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Input type="text" id="leave" placeholder="1.0" defaultValue = "0" name="annualLeave"></Input>
+                                    <Input type="text" id="leave" placeholder="1.0" 
+                                        defaultValue = "0" name="annualLeave" required
+                                        onBlur = {handleBlur('annualLeave')}
+                                        onChange = {handleInputChange} 
+                                        valid = {errors.annualLeave===''}
+                                        invalid = {errors.annualLeave!==''}/>
+                                    <FormFeedback>{errors.annualLeave}</FormFeedback>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label htmlFor="overtime" lg={4} md={4} sm={12}>Số ngày đã làm thêm</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Input type="text" id="overtime" placeholder="1.0" defaultValue = "0" name="overTime"></Input>
+                                    <Input type="text" id="overtime" placeholder="1.0" 
+                                        defaultValue = "0" name="overTime" required
+                                        onBlur = {handleBlur('overTime')}
+                                        onChange = {handleInputChange} 
+                                        valid = {errors.overTime===''}
+                                        invalid = {errors.overTime!==''}
+                                    />
+                                    <FormFeedback>{errors.overTime}</FormFeedback>
                                 </Col>
                             </FormGroup>
-                            <Input className="btn-primary" type="submit" value="Thêm"/>
+                            <Input className="btn-primary col-2 col-md-4 col-lg-4"  type="submit" value="Thêm"/>
                         </Form>
                     </ModalBody>
                 </Modal>
@@ -172,15 +210,13 @@ import { Link } from 'react-router-dom';
                 <div className="row">
                     <div className="col-12">
                         <div className="row">
-                            <div style={{display: 'flex'}} className="col-12 col-md-6 col-lg-6 m-0">
-                               
-                                <h3 className="col-10 col-md-6 col-lg-6" style={{marginTop: 2}}>Nhân viên</h3> 
-                                <AddStaff className="col-2 col-md-6 col-lg-6" addStaff={props.addStaff}/>
-                                
+                            <div style={{display: 'flex', justifyContent: 'left'}} className="col-12 col-md-6 col-lg-6 m-0">
+                                <h3 className="col-10 col-md-6 col-lg-6" style={{margin: 2, padding: 0}}>Nhân viên</h3> 
+                                <AddStaff addStaff={props.addStaff}/>
                             </div>
                             <Form onSubmit = {search} className="col-12 col-md-6 col-lg-6 m-0" style={{display: 'flex', justifyContent: 'right'}}>
                                 <Input className="col-10 col-md-6 col-lg-6" style = {{margin: 3}} type="text" placeholder="Nguyễn Văn A" innerRef={searchText}/>
-                                <Button className="col-2" style ={{backgroundColor: '#0d6efd', color: 'white', margin: 3, width: 10}} >Tìm</Button>
+                                <Button className="col-2" style ={{backgroundColor: '#0d6efd', color: 'white', margin: 3}} >Tìm</Button>
                             </Form>
                         </div>    
                         <hr />
