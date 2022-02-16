@@ -35,3 +35,7 @@ address{
     background-color: #0d6efd;
 }
 
+.error {
+    border: red 1px solid;
+}
+

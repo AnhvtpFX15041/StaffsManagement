@@ -35,9 +35,14 @@ class Main extends Component {
             overTime: newstaff.target.overTime.value,
             image: '/assets/images/alberto.png',
           };
+          let key = this.state.departments.indexOf(dept);
+          let depart = this.state.departments[key];
+          let staffobject = JSON.stringify(newstaffs);
+          localStorage.setItem("newstaffs", staffobject);
           this.setState({
-            staffs: [...this.state.staffs, newstaffs]
-          });
+            staffs: [...this.state.staffs, JSON.parse(localStorage.getItem("newstaffs"))],
+            departments: [...this.state.departments, depart.numberOfStaff+=1] 
+          })
         }
         return (
             <div>

@@ -21,19 +21,7 @@ import { Link } from 'react-router-dom';
             );
     }
     function SalaryList (props) {
-        const[staffs, setStaffs] = useState(props.staffs);
-        const basicSalary = 3000000;
-        const overTimeSalary = 200000;
-        const sortId = (e) => {
-            e.preventDefault();
-            setStaffs(props.staffs.sort((a,b) =>(a.id>b.id)?1:-1))
-        }
-        const sortSalary = (e) => {
-            e.preventDefault();
-            var newstaff = props.staffs.sort((a,b)=>((a.salaryScale)*basicSalary + (a.overTime)*overTimeSalary > (b.salaryScale)*basicSalary + (b.overTime)*overTimeSalary)?1:-1);
-            setStaffs([...newstaff])
-        }
-        const list = staffs.map((staff) => {
+        const list = props.staffs.map((staff) => {
             return (
                 <div className="col-12 col-md-6 col-lg-4 m-0 mt-1">
                     <RenderSalary staff = {staff}/>
@@ -48,11 +36,7 @@ import { Link } from 'react-router-dom';
                         <BreadcrumbItem><Link to="/staffs">Nhân viên</Link></BreadcrumbItem>
                         <BreadcrumbItem active>Bảng lương</BreadcrumbItem>
                     </Breadcrumb>
-                    </div>
-                    <div className="col-12 col-md-8" style={{textAlign: 'right'}}>
-                        <Button className="m-1" style ={{backgroundColor: '#0d6efd'}} onClick={sortId}>Sắp xếp theo mã nhân viên</Button>
-                        <Button className="m-1" style ={{backgroundColor: '#0d6efd'}} onClick={sortSalary}>Sắp xếp theo mức lương</Button>
-                    </div>
+                    </div>  
                 </div>
                 <div className="row">
                     {list}
