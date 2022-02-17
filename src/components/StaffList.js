@@ -19,9 +19,9 @@ import { Link } from 'react-router-dom';
             staffname: '',
             doB: '',
             startDate: '',
-            salaryScale: '',
-            annualLeave: '',
-            overTime: ''
+            salaryScale: 1,
+            annualLeave: 0,
+            overTime: 0
         });
         const [touch, setTouch] = useState({
             staffname: false,
@@ -78,8 +78,22 @@ import { Link } from 'react-router-dom';
             };
             return errors;
         }
+        const onButtonClick = () => {
+            setTouch({
+                ...touch,
+                staffname: true,
+                doB: true,
+                startDate: true,
+                salaryScale: true,
+                annualLeave: true,
+                overTime: true
+            });
+        }
         const handleSubmit = (values) => {
-            props.addStaff(values);
+            if (errors.staffname==='' && errors.doB==='' && errors.startDate==='' && errors.salaryScale==='' && errors.annualLeave==='' && errors.overTime===''){
+                props.addStaff(values);
+                console.log(touch)
+            }
             values.preventDefault();
         };
         const toggleModal =() =>{
@@ -99,7 +113,7 @@ import { Link } from 'react-router-dom';
                                 <Label htmlFor="staffname" lg={4} md={4} sm={12}>Tên</Label>
                                 <Col lg={8} md={8} sm={12}>
                                     <Input  
-                                        type="text" id="staffname" name="staffname" required
+                                        type="text" id="staffname" name="staffname"
                                         value = {state.staffname}
                                         onBlur = {handleBlur('staffname')}
                                         onChange = {handleInputChange} 
@@ -111,7 +125,7 @@ import { Link } from 'react-router-dom';
                             <FormGroup row>
                                 <Label htmlFor="doB" lg={4} md={4} sm={12}>Ngày sinh</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Input type="date" id="doB" name="doB" required
+                                    <Input type="date" id="doB" name="doB"
                                         value = {state.doB}
                                         onBlur = {handleBlur('doB')}
                                         onChange = {handleInputChange} 
@@ -124,7 +138,7 @@ import { Link } from 'react-router-dom';
                             <FormGroup row>
                                 <Label htmlFor="startDate" lg={4} md={4} sm={12}>Ngày vào công ty</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Input type="date" id="startDate" name="startDate" required
+                                    <Input type="date" id="startDate" name="startDate"
                                         value = {state.startDate}
                                         onBlur = {handleBlur('startDate')}
                                         onChange = {handleInputChange} 
@@ -149,7 +163,7 @@ import { Link } from 'react-router-dom';
                                 <Label htmlFor="scale" lg={4} md={4} sm={12}>Hệ số lương</Label>
                                 <Col lg={8} md={8} sm={12}>
                                     <Input type="text" id="scale" placeholder="1.0 -> 3.0" 
-                                        defaultValue = "1" name="salaryScale" required
+                                        defaultValue = "1" name="salaryScale"
                                         onBlur = {handleBlur('salaryScale')}
                                         onChange = {handleInputChange} 
                                         valid = {errors.salaryScale===''}
@@ -162,7 +176,7 @@ import { Link } from 'react-router-dom';
                                 <Label htmlFor="leave" lg={4} md={4} sm={12}>Số ngày nghỉ còn lại</Label>
                                 <Col lg={8} md={8} sm={12}>
                                     <Input type="text" id="leave" placeholder="1.0" 
-                                        defaultValue = "0" name="annualLeave" required
+                                        defaultValue = "0" name="annualLeave"
                                         onBlur = {handleBlur('annualLeave')}
                                         onChange = {handleInputChange} 
                                         valid = {errors.annualLeave===''}
@@ -174,7 +188,7 @@ import { Link } from 'react-router-dom';
                                 <Label htmlFor="overtime" lg={4} md={4} sm={12}>Số ngày đã làm thêm</Label>
                                 <Col lg={8} md={8} sm={12}>
                                     <Input type="text" id="overtime" placeholder="1.0" 
-                                        defaultValue = "0" name="overTime" required
+                                        defaultValue = "0" name="overTime"
                                         onBlur = {handleBlur('overTime')}
                                         onChange = {handleInputChange} 
                                         valid = {errors.overTime===''}
@@ -183,7 +197,7 @@ import { Link } from 'react-router-dom';
                                     <FormFeedback>{errors.overTime}</FormFeedback>
                                 </Col>
                             </FormGroup>
-                            <Input className="btn-primary col-2 col-md-4 col-lg-4"  type="submit" value="Thêm"/>
+                            <Input className="btn-primary col-2 col-md-4 col-lg-4" onClick = {onButtonClick}  type="submit" value="Thêm"/>
                         </Form>
                     </ModalBody>
                 </Modal>

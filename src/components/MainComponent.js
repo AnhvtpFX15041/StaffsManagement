@@ -5,27 +5,29 @@ import DeptList from './DepartmentComponent';
 import SalaryList from './SalaryComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import { DEPARTMENTS, STAFFS } from '../shared/staffs';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+const mapStateToProps = state => {
+  return {
+    staffs: state.staffs,
+    departments: state.departments
+  }
+}
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      staffs: STAFFS,
-      departments: DEPARTMENTS,
-    };
   }
     render(){
         const StaffWithId = ({match}) => {
             return(
-                <StaffDetail staff={this.state.staffs.filter((staff) => staff.id === parseInt(match.params.staffId,10))[0]} />
+                <StaffDetail staff={this.props.staffs.filter((staff) => staff.id === parseInt(match.params.staffId,10))[0]} />
             );
           };
         const addStaff = (newstaff) => {
-          let dept = this.state.departments.filter((dept) =>{return dept.id === newstaff.target.department.value})[0];
+          let dept = this.props.departments.filter((dept) =>{return dept.id === newstaff.target.department.value})[0];
           let newstaffs = {
-            id: this.state.staffs.length,
+            id: this.props.staffs.length,
             name: newstaff.target.staffname.value,
             doB: newstaff.target.doB.value,
             salaryScale: newstaff.target.salaryScale.value,
@@ -35,23 +37,23 @@ class Main extends Component {
             overTime: newstaff.target.overTime.value,
             image: '/assets/images/alberto.png',
           };
-          let key = this.state.departments.indexOf(dept);
-          let depart = this.state.departments[key];
+          let key = this.props.departments.indexOf(dept);
+          let depart = this.props.departments[key];
           let staffobject = JSON.stringify(newstaffs);
-          localStorage.setItem("newstaffs", staffobject);
+          localStorage.setItem(`${newstaffs.name}`, staffobject);
           this.setState({
-            staffs: [...this.state.staffs, JSON.parse(localStorage.getItem("newstaffs"))],
-            departments: [...this.state.departments, depart.numberOfStaff+=1] 
+            staffs: [...this.props.staffs, JSON.parse(localStorage.getItem(`${newstaffs.name}`))],
+            departments: [...this.props.departments, depart.numberOfStaff+=1] 
           })
         }
         return (
             <div>
                 <Header/>
                 <Switch>
-                    <Route exact path="/staffs" component= {() => <List staffs={this.state.staffs} addStaff={addStaff}/>}/>
+                    <Route exact path="/staffs" component= {() => <List staffs={this.props.staffs} addStaff={addStaff}/>}/>
                     <Route path='/staffs/:staffId' component={StaffWithId} />
-                    <Route exact path="/department" component={() => <DeptList departments={this.state.departments}/>}/>
-                    <Route exact path="/salary" component={() => <SalaryList staffs={this.state.staffs}/>}/>
+                    <Route exact path="/department" component={() => <DeptList departments={this.props.departments}/>}/>
+                    <Route exact path="/salary" component={() => <SalaryList staffs={this.props.staffs}/>}/>
                     <Redirect to="/staffs" />
                 </Switch>
                 <Footer/>
@@ -61,4 +63,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default withRouter(connect(mapStateToProps)(Main));
