@@ -30,7 +30,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
         };
         return(
             <div>
-                <Button  onClick={toggleModal} style = {{marginTop: 3, marginLeft: 0}}><i className="fa fa-plus"></i></Button>
+                <Button  onClick={toggleModal} style = {{marginTop: 3, marginLeft: 7}}><i style={{width: 35}} className="fa fa-plus"></i></Button>
                 <Modal isOpen={isOpen}>
                     <ModalHeader toggle={toggleModal}>
                         <h5>Thêm nhân viên</h5>
@@ -53,8 +53,8 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                                             required: 'Yêu cầu nhập',
                                             minLength: 'Yêu cầu nhiều hơn 2 ký tự',
                                             maxLength: 'Yêu cầu ít hơn 30 ký tự'
-                                        }}
-                                     />
+                                        }} 
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
@@ -186,12 +186,12 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                     <div className="col-12">
                         <div className="row">
                             <div style={{display: 'flex', justifyContent: 'left'}} className="col-12 col-md-6 col-lg-6 m-0">
-                                <h3 className="col-10 col-md-6 col-lg-6" style={{margin: 2, padding: 0}}>Nhân viên</h3> 
+                                <h3 className="col-9 col-md-8 col-lg-8" style={{margin: 2, padding: 0}}>Nhân viên</h3> 
                                 <AddStaff addStaff={props.addStaff}/>
                             </div>
-                            <Form onSubmit = {search} className="col-12 col-md-6 col-lg-6 m-0" style={{display: 'flex', justifyContent: 'right'}}>
-                                <Input className="col-10 col-md-6 col-lg-6" style = {{margin: 3}} type="text" placeholder="Nguyễn Văn A" innerRef={searchText}/>
-                                <Button className="col-2" style ={{backgroundColor: '#0d6efd', color: 'white', margin: 3}} >Tìm</Button>
+                            <Form onSubmit = {search} className="col-12 col-md-6 col-lg-6 m-0" style={{display: 'flex', justifyContent: 'left'}}>
+                                <Input className="col-9 col-md-8 col-lg-8" style = {{margin: 3, width: 20}} type="text" placeholder="Nguyễn Văn A" innerRef={searchText}/>
+                                <Button style ={{backgroundColor: '#0d6efd', color: 'white', margin: 3, marginLeft: 7, width: 58}} >Tìm</Button>
                             </Form>
                         </div>    
                         <hr />
