@@ -16,19 +16,17 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
     }
     function AddStaff(props) {
         const [isOpen, setIsOpen] = useState(false);
+        
         const required = (val) => val && val.length;
         const maxLength = (len) => (val) => !(val) || (val.length <= len);
         const minLength = (len) => (val) => !(val) || (val.length >= len);
         const isNumber = (val) => !isNaN(Number(val));
-        /*
-            const regexdate = /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/;
-            const regexnumber = /^[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)$/;
-            */
+        
         const handleSubmit = (values) => {
-            
+            props.addStaff(values);
         };
         const toggleModal =() =>{
-                setIsOpen(!isOpen)
+            setIsOpen(!isOpen)
         };
         return(
             <div>
@@ -42,7 +40,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             <Row className="form-group">
                                 <Label htmlFor="staffname" lg={4} md={4} sm={12}>Tên</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Control.text  className="form-control"
+                                    <Control.text  className="form-control" 
                                         id="staffname" name="staffname" model = ".staffname"
                                         validators = {{
                                             required, minLength: minLength(3), maxLength: maxLength(29)
@@ -63,7 +61,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                                 <Label htmlFor="doB" lg={4} md={4} sm={12}>Ngày sinh</Label>
                                 <Col lg={8} md={8} sm={12}>
                                     <Control model=".doB" type="date" id="doB" 
-                                        name="doB" className="form-control"
+                                        name="doB" className="form-control" 
                                         validators = {{required}}    
                                      />
                                     <Errors
@@ -78,7 +76,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                                 <Label htmlFor="startDate" lg={4} md={4} sm={12}>Ngày vào công ty</Label>
                                 <Col lg={8} md={8} sm={12}>
                                     <Control model=".startDate" type="date" id="startDate" 
-                                        name="startDate" className="form-control"
+                                        name="startDate" className="form-control" 
                                         validators = {{required}}
                                     />
                                     <Errors
@@ -92,7 +90,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             <Row className="form-group">
                                 <Label htmlFor="department" lg={4} md={4} sm={12}>Phòng ban</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Control.select model=".department" id="department" name="department" className="form-control">
+                                    <Control.select model=".department" id="department" defaultValue="Dept01" name="department" className="form-control">
                                         <option value="Dept01">Sale</option>
                                         <option value="Dept02">HR</option>
                                         <option value="Dept03">Marketing</option>
@@ -104,8 +102,8 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             <Row className="form-group">
                                 <Label htmlFor="scale" lg={4} md={4} sm={12}>Hệ số lương</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Control.text model=".salaryScale" id="scale" placeholder="1.0 -> 3.0" 
-                                        defaultValue = "1" name="salaryScale" className="form-control"
+                                    <Control.text model=".salaryScale" id="scale" placeholder="1.0 -> 3.0" defaultValue="1"
+                                        name="salaryScale" className="form-control"
                                         validators={{
                                             required, isNumber
                                         }}
@@ -124,8 +122,8 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             <Row className="form-group">
                                 <Label htmlFor="leave" lg={4} md={4} sm={12}>Số ngày nghỉ còn lại</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Control.text model=".annualLeave" id="leave" placeholder="1.0" 
-                                        defaultValue = "0" name="annualLeave" className="form-control"
+                                    <Control.text model=".annualLeave" id="leave" placeholder="1.0" defaultValue="0"
+                                        name="annualLeave" className="form-control"
                                         validators={{
                                             required, isNumber
                                         }}/>
@@ -143,7 +141,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                             <Row className="form-group">
                                 <Label htmlFor="overtime" lg={4} md={4} sm={12}>Số ngày đã làm thêm</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Control.text model=".overTime" id="overtime" placeholder="1.0" 
+                                    <Control.text model=".overTime" id="overtime" placeholder="1.0"
                                         defaultValue = "0" name="overTime" className="form-control"
                                         validators={{
                                             required, isNumber
@@ -177,7 +175,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
         }
         const list = staffs.map((staff) => {
             return (
-                <div key={staff.id} className="col-12 col-md-4 col-lg-2 m-0 mt-1">
+                <div key={staff.id} className="col-6 col-md-4 col-lg-2 m-0 mt-1">
                     <RenderStaff staff = {staff}/>
                 </div>
             );

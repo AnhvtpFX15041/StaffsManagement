@@ -5,55 +5,55 @@ import DeptList from './DepartmentComponent';
 import SalaryList from './SalaryComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { DEPARTMENTS, STAFFS } from '../shared/staffs';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-const mapStateToProps = state => {
-  return {
-    staffs: state.staffs,
-    departments: state.departments
-  }
-}
 class Main extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      staffs: STAFFS,
+      departments: DEPARTMENTS,
+    };
   }
+  
     render(){
         const StaffWithId = ({match}) => {
             return(
-                <StaffDetail staff={this.props.staffs.filter((staff) => staff.id === parseInt(match.params.staffId,10))[0]} />
+                <StaffDetail staff={this.state.staffs.filter((staff) => staff.id === parseInt(match.params.staffId,10))[0]} />
             );
           };
         const addStaff = (newstaff) => {
-          let dept = this.props.departments.filter((dept) =>{return dept.id === newstaff.target.department.value})[0];
-          let newstaffs = {
-            id: this.props.staffs.length,
-            name: newstaff.target.staffname.value,
-            doB: newstaff.target.doB.value,
-            salaryScale: newstaff.target.salaryScale.value,
-            startDate: newstaff.target.startDate.value,
+          const dept = this.state.departments.filter((dept) =>{return dept.id === newstaff.department})[0];
+          const newstaffs = {
+            id: this.state.staffs.length,
+            name: newstaff.staffname,
+            doB: newstaff.doB,
+            salaryScale: newstaff.salaryScale,
+            startDate: newstaff.startDate,
             department: dept,
-            annualLeave: newstaff.target.annualLeave.value,
-            overTime: newstaff.target.overTime.value,
+            annualLeave: newstaff.annualLeave,
+            overTime: newstaff.overTime,
             image: '/assets/images/alberto.png',
           };
-          let key = this.props.departments.indexOf(dept);
-          let depart = this.props.departments[key];
-          let staffobject = JSON.stringify(newstaffs);
+          const key = this.state.departments.indexOf(dept);
+          const departments = this.state.departments.slice();
+          departments[key].numberOfStaff += 1;
+          const staffobject = JSON.stringify(newstaffs);
           localStorage.setItem(`${newstaffs.name}`, staffobject);
           this.setState({
-            staffs: [...this.props.staffs, JSON.parse(localStorage.getItem(`${newstaffs.name}`))],
-            departments: [...this.props.departments, depart.numberOfStaff+=1] 
+            staffs: [...this.state.staffs, JSON.parse(localStorage.getItem(`${newstaffs.name}`))],
+            departments: departments 
           })
         }
         return (
             <div>
                 <Header/>
                 <Switch>
-                    <Route exact path="/staffs" component= {() => <List staffs={this.props.staffs} addStaff={addStaff}/>}/>
+                    <Route exact path="/staffs" component= {() => <List staffs={this.state.staffs} addStaff={addStaff}/>}/>
                     <Route path='/staffs/:staffId' component={StaffWithId} />
-                    <Route exact path="/department" component={() => <DeptList departments={this.props.departments}/>}/>
-                    <Route exact path="/salary" component={() => <SalaryList staffs={this.props.staffs}/>}/>
+                    <Route exact path="/department" component={() => <DeptList departments={this.state.departments}/>}/>
+                    <Route exact path="/salary" component={() => <SalaryList staffs={this.state.staffs}/>}/>
                     <Redirect to="/staffs" />
                 </Switch>
                 <Footer/>
@@ -63,4 +63,4 @@ class Main extends Component {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default Main;

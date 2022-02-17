@@ -16,14 +16,13 @@ import { Link } from 'react-router-dom';
                 <CardText className="ml-3">Lương: {(Math.round((staff.salaryScale)*basicSalary + (staff.overTime)*overTimeSalary)).toLocaleString()} VND</CardText>
                 </Card>
                 </CardBody>
-            </Card>
-                
-            );
+            </Card>       
+        );
     }
     function SalaryList (props) {
         const list = props.staffs.map((staff) => {
             return (
-                <div className="col-12 col-md-6 col-lg-4 m-0 mt-1">
+                <div key={staff.id} className="col-12 col-md-6 col-lg-4 m-0 mt-1">
                     <RenderSalary staff = {staff}/>
                 </div>
             );
