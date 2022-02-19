@@ -3,6 +3,7 @@ import { Card, CardText, CardImg, Button, Form, Label, Input, Row, Col,
     ModalHeader, Modal, ModalBody} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { baseUrl } from '../shared/baseUrl';
     
     function RenderStaff({staff}) {
         return(

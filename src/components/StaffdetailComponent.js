@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardImg, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import dateFormat from 'dateformat';
-
+import { baseUrl } from '../shared/baseUrl';
 
     function RenderStaff({staff}) {
         return(
