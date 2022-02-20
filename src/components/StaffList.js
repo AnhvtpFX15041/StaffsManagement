@@ -9,7 +9,7 @@ import { baseUrl } from '../shared/baseUrl';
         return(
             <Card>
                 <Link to = {`/staffs/${staff.id}`} >
-                    <CardImg  width="100%" src= {staff.image} alt = {staff.name} />
+                    <CardImg  width="100%" src= {baseUrl + staff.image} alt = {staff.name} />
                     <CardText className="text-center">{staff.name}</CardText>
                 </Link>
             </Card>  
@@ -24,7 +24,7 @@ import { baseUrl } from '../shared/baseUrl';
         const isNumber = (val) => !isNaN(Number(val));
         
         const handleSubmit = (values) => {
-            props.addStaff(values);
+            props.addStaff(values.name, values.doB, values.startDate, values.departmentId, values.salaryScale, values.annualLeave, values.overTime);
         };
         const toggleModal =() =>{
             setIsOpen(!isOpen)
@@ -89,9 +89,9 @@ import { baseUrl } from '../shared/baseUrl';
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="department" lg={4} md={4} sm={12}>Phòng ban</Label>
+                                <Label htmlFor="departmentId" lg={4} md={4} sm={12}>Phòng ban</Label>
                                 <Col lg={8} md={8} sm={12}>
-                                    <Control.select model=".department" id="department" defaultValue="Dept01" name="department" className="form-control">
+                                    <Control.select model=".departmentId" id="departmentId" defaultValue="Dept01" name="departmentId" className="form-control">
                                         <option value="Dept01">Sale</option>
                                         <option value="Dept02">HR</option>
                                         <option value="Dept03">Marketing</option>
@@ -172,15 +172,36 @@ import { baseUrl } from '../shared/baseUrl';
         const search =(e)=>{
             e.preventDefault();
             const searchval = searchText.current.value.toLowerCase();
-            setStaffs(props.staffs.filter((staff) =>{ return staff.name.toLowerCase().indexOf(searchval)!==-1}));
+            setStaffs(props.staffs.staffs.filter((staff) =>{ return staff.name.toLowerCase().indexOf(searchval)!==-1}));
         }
-        const list = staffs.map((staff) => {
+        const list = staffs.staffs.map((staff) => {
             return (
                 <div key={staff.id} className="col-6 col-md-4 col-lg-2 m-0 mt-1">
                     <RenderStaff staff = {staff}/>
                 </div>
             );
         });
+        if (props.staffs.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.staffs.errMess) {
+            return(
+                <div className="container">
+                    <div className="row"> 
+                        <div className="col-12">
+                            <h4>{props.staffs.errMess}</h4>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        else
         return (
             <div className="container">
                 <div className="row">

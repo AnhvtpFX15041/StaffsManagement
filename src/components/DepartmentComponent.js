@@ -1,13 +1,16 @@
 import React from 'react';
 import { Card, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
     function RenderDept({dept}) {
         return(
             <Card>
-                <CardBody>
-                <CardTitle>{dept.name}</CardTitle>
-                <CardText>Số lượng nhân viên: {dept.numberOfStaff}</CardText>
-                </CardBody>
+                <Link to= {`/departments/${departmentId}`} >
+                    <CardBody>
+                    <CardTitle>{dept.name}</CardTitle>
+                    <CardText>Số lượng nhân viên: {dept.numberOfStaff}</CardText>
+                    </CardBody>
+                </Link>
             </Card>
                 
             );

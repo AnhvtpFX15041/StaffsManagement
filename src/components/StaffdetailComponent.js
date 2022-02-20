@@ -9,14 +9,14 @@ import { baseUrl } from '../shared/baseUrl';
             <div className = "row">
                 <div  className="col-12 col-lg-3 col-md-4 m-1">
                 <Card>
-                    <CardImg width="100%" top src={staff.image} alt={staff.name} />
+                    <CardImg width="100%" top src={baseUrl + staff.image} alt={staff.name} />
                 </Card>
                 </div>
                 <div className="col-12 col-lg-8 col-md-7 m-1">
                         <h3>Họ và tên: {staff.name}</h3>
                         <p>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</p>
                         <p>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</p>
-                        <p>Phòng ban: {staff.department.name}</p>
+                        /*<p>Phòng ban: {staff.department.name}</p>*/
                         <p>Số ngày nghỉ còn lại: {staff.annualLeave}</p>
                         <p>Số ngày đã làm thêm: {staff.overTime}</p>
                 </div>
@@ -24,6 +24,25 @@ import { baseUrl } from '../shared/baseUrl';
         )
     }
     const StaffDetail = (props) => {
+        if (props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else
         if (props.staff != null)
             return(
                 <div className="container">
