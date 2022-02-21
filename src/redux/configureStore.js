@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { createForms } from 'react-redux-form';
 import { AddStaff} from './forms';
+import { Deptstaff } from './departmentstaff';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -14,6 +15,7 @@ export const ConfigureStore = () => {
             staffs: Staffs,
             departments: Departments,
             salaries: Salaries,
+            deptstaff: Deptstaff,
             ...createForms({
                 addstaff: AddStaff
             })

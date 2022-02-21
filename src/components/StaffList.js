@@ -4,12 +4,13 @@ import { Card, CardText, CardImg, Button, Form, Label, Input, Row, Col,
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
     
     function RenderStaff({staff}) {
         return(
             <Card>
                 <Link to = {`/staffs/${staff.id}`} >
-                    <CardImg  width="100%" src= {baseUrl + staff.image} alt = {staff.name} />
+                    <CardImg  width="100%" src= {staff.image} alt = {staff.name} />
                     <CardText className="text-center">{staff.name}</CardText>
                 </Link>
             </Card>  

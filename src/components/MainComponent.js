@@ -8,14 +8,15 @@ import Footer from './FooterComponent';
 import { DEPARTMENTS, STAFFS } from '../shared/staffs';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postStaff, fetchStaffs, fetchDepartments, fetchSalaries } from '../redux/ActionCreators';
+import { postStaff, fetchStaffs, fetchDepartments, fetchSalaries,fetchDeptstaff } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 
 const mapStateToProps = state => {
   return {
     staffs: state.staffs,
     departments: state.departments,
-    salaries: state.salaries
+    salaries: state.salaries,
+    deptstaff: state.deptstaff
   }
 }
 const mapDispatchToProps = dispatch => ({
@@ -23,7 +24,8 @@ const mapDispatchToProps = dispatch => ({
   fetchStaffs: () => { dispatch(fetchStaffs())},
   //resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
   fetchDepartments: () => dispatch(fetchDepartments()),
-  fetchSalaries: () => dispatch(fetchSalaries())
+  fetchSalaries: () => dispatch(fetchSalaries()),
+  fetchDeptstaff: (department) => dispatch(fetchDeptstaff(department))
 });
 
 class Main extends Component {
@@ -34,18 +36,23 @@ class Main extends Component {
       departments: DEPARTMENTS,
     };*/
   }
-  
+  componentDidMount() {
+    this.props.fetchStaffs();
+    this.props.fetchDepartments();
+    this.props.fetchSalaries();
+  };
     render(){
         const StaffWithId = ({match}) => {
             return(
-                <StaffDetail staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.staffId,10))[0]} />
+                <StaffDetail departments = {this.props.departments} staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.staffId,10))[0]}/>
             );
           };
         const DeptWithId = ({match}) => {
           return(
-              <List staffs={this.props.departments.departments.filter((department) => department.id === parseInt(match.params.departmentId,10))[0]} />
+              <List addStaff={postStaff} staffs={fetchDeptstaff(parseInt(match.params.departmentId,10))[0]} />
           );
         };
+
         /*const postStaff = (newstaff) => {
           const dept = this.state.departments.filter((dept) =>{return dept.id === newstaff.department})[0];
           const newstaffs = {
@@ -77,7 +84,7 @@ class Main extends Component {
                     <Route path='/staffs/:staffId' component={StaffWithId} />
                     <Route exact path="/department" component={() => <DeptList departments={this.props.departments}/>}/>
                     <Route path='/departments/:departmentId' component={DeptWithId} />
-                    <Route exact path="/salary" component={() => <SalaryList staffs={this.props.staffs}/>}/>
+                    <Route exact path="/salary" component={() => <SalaryList staffs={this.props.salaries}/>}/>
                     <Redirect to="/staffs" />
                 </Switch>
                 <Footer/>

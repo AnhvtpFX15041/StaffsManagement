@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom';
         );
     }
     function SalaryList (props) {
-        const list = props.staffs.map((staff) => {
+        const list = props.staffs.salaries.map((staff) => {
             return (
                 <div key={staff.id} className="col-12 col-md-6 col-lg-4 m-0 mt-1">
                     <RenderSalary staff = {staff}/>

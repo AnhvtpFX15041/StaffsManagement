@@ -38,6 +38,38 @@ export const salariesFailed = (errmess) => ({
   type: ActionTypes.SALARIES_FAILED,
   payload: errmess
 });
+export const addDeptstaff = (staffs) => ({
+  type: ActionTypes.ADD_DEPTSTAFF,
+  payload: staffs
+});
+export const deptstaffLoading = () => ({
+  type: ActionTypes.DEPTSTAFF_LOADING
+});
+export const deptstaffFailed = (errmess) => ({
+  type: ActionTypes.DEPTSTAFF_FAILED,
+  payload: errmess
+});
+export const fetchDeptstaff = (department) => (dispatch) => {
+  //dispatch(deptstaffLoading(true));
+
+  return fetch(baseUrl + '/departments/' + department)
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          var errmess = new Error(error.message);
+          throw errmess;
+    })
+  .then(response => response.json())
+  .then(staffs => dispatch(addDeptstaff(staffs)))
+  .catch(error => dispatch(deptstaffFailed(`${error.message}`)));
+}
 export const fetchStaffs = () => (dispatch) => {
 
   dispatch(staffsLoading(true));
