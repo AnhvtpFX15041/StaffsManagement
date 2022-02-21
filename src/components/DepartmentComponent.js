@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
     function RenderDept({dept}) {
         return(
             <Card>
-                <Link to= {`/departments/${dept.id}`} >
+                <Link to= {`/department/${dept.id}`} >
                     <CardBody>
                     <CardTitle>{dept.name}</CardTitle>
                     <CardText>Số lượng nhân viên: {dept.numberOfStaff}</CardText>

@@ -15,8 +15,7 @@ const mapStateToProps = state => {
   return {
     staffs: state.staffs,
     departments: state.departments,
-    salaries: state.salaries,
-    deptstaff: state.deptstaff
+    salaries: state.salaries
   }
 }
 const mapDispatchToProps = dispatch => ({
@@ -49,7 +48,7 @@ class Main extends Component {
           };
         const DeptWithId = ({match}) => {
           return(
-              <List addStaff={postStaff} staffs={fetchDeptstaff(parseInt(match.params.departmentId,10))[0]} />
+              <List addStaff={postStaff} staffs={() => fetchDeptstaff((department) => department ===parseInt(match.params.departmentId,10))}/>
           );
         };
 
@@ -80,10 +79,10 @@ class Main extends Component {
             <div>
                 <Header/>
                 <Switch>
-                    <Route exact path="/staffs" component= {() => <List staffs={this.props.staffs} addStaff={postStaff}/>}/>
+                    <Route exact path="/staffs" component= {() => <List staffs={this.props.staffs} postStaff={this.props.postStaff}/>}/>
                     <Route path='/staffs/:staffId' component={StaffWithId} />
                     <Route exact path="/department" component={() => <DeptList departments={this.props.departments}/>}/>
-                    <Route path='/departments/:departmentId' component={DeptWithId} />
+                    <Route path='/department/:departmentId' component={DeptWithId} />
                     <Route exact path="/salary" component={() => <SalaryList staffs={this.props.salaries}/>}/>
                     <Redirect to="/staffs" />
                 </Switch>

@@ -25,7 +25,7 @@ import { Loading } from './LoadingComponent';
         const isNumber = (val) => !isNaN(Number(val));
         
         const handleSubmit = (values) => {
-            props.addStaff(values.name, values.doB, values.startDate, values.departmentId, values.salaryScale, values.annualLeave, values.overTime);
+            props.postStaff(values.staffname, values.doB, values.startDate, values.departmentId, values.salaryScale, values.annualLeave, values.overTime);
         };
         const toggleModal =() =>{
             setIsOpen(!isOpen)
@@ -173,7 +173,7 @@ import { Loading } from './LoadingComponent';
         const search =(e)=>{
             e.preventDefault();
             const searchval = searchText.current.value.toLowerCase();
-            setStaffs(props.staffs.staffs.filter((staff) =>{ return staff.name.toLowerCase().indexOf(searchval)!==-1}));
+            setStaffs({...props.staffs, staffs: props.staffs.staffs.filter((staff) =>{ return staff.name.toLowerCase().indexOf(searchval)!==-1})});
         }
         const list = staffs.staffs.map((staff) => {
             return (
@@ -210,7 +210,7 @@ import { Loading } from './LoadingComponent';
                         <div className="row">
                             <div style={{display: 'flex', justifyContent: 'left'}} className="col-12 col-md-6 col-lg-6 m-0">
                                 <h3 className="col-9 col-md-8 col-lg-8" style={{margin: 2, padding: 0}}>Nhân viên</h3> 
-                                <AddStaff addStaff={props.addStaff}/>
+                                <AddStaff postStaff={props.postStaff}/>
                             </div>
                             <Form onSubmit = {search} className="col-12 col-md-6 col-lg-6 m-0" style={{display: 'flex', justifyContent: 'left'}}>
                                 <Input className="col-9 col-md-8 col-lg-8" style = {{margin: 3, width: 20}} type="text" placeholder="Nguyễn Văn A" innerRef={searchText}/>
