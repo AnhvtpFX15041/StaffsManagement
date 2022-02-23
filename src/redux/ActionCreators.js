@@ -52,7 +52,7 @@ export const deptstaffFailed = (errmess) => ({
 export const fetchDeptstaff = (department) => (dispatch) => {
   //dispatch(deptstaffLoading(true));
 
-  return fetch(baseUrl + '/departments/' + department)
+  return fetch(baseUrl + 'departments/' + department)
   .then(response => {
       if (response.ok) {
         return response;
@@ -172,4 +172,30 @@ export const postStaff = (name, doB, startDate, departmentId, salaryScale, annua
     .then(response => response.json())
     .then(response => dispatch(addStaff(response)))
     .catch(error =>  { console.log('post staffs', error.message); alert('New staff could not be added\nError: '+error.message); });
+};
+
+export const updateStaffs = (staffs) => ({
+  type: ActionTypes.UPDATE_STAFFS,
+  payload: staffs
+});
+export const deleteStaff = (id) => (dispatch) => {   
+  return fetch(baseUrl + `staffs/${id}`,{
+    method: 'DELETE',
+  })
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          var errmess = new Error(error.message);
+          throw errmess;
+    })
+  .then(response => response.json())
+  .then(response => dispatch(updateStaffs(response)))
+  .catch(error => {alert(error.message)});
 };

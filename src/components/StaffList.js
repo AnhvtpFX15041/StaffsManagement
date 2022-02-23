@@ -26,6 +26,7 @@ import { Loading } from './LoadingComponent';
         
         const handleSubmit = (values) => {
             props.postStaff(values.staffname, values.doB, values.startDate, values.departmentId, values.salaryScale, values.annualLeave, values.overTime);
+            toggleModal();
         };
         const toggleModal =() =>{
             setIsOpen(!isOpen)
