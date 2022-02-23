@@ -67,7 +67,8 @@ export const fetchDeptstaff = (department) => (dispatch) => {
           throw errmess;
     })
   .then(response => response.json())
-  .then(staffs => dispatch(addDeptstaff(staffs)))
+  .then(staffs => {dispatch(addDeptstaff(staffs));
+    console.log(staffs)})
   .catch(error => dispatch(deptstaffFailed(`${error.message}`)));
 }
 export const fetchStaffs = () => (dispatch) => {
@@ -170,7 +171,7 @@ export const postStaff = (name, doB, startDate, departmentId, salaryScale, annua
             throw error;
       })
     .then(response => response.json())
-    .then(response => dispatch(addStaff(response)))
+    .then(response => dispatch(addStaffs(response)))
     .catch(error =>  { console.log('post staffs', error.message); alert('New staff could not be added\nError: '+error.message); });
 };
 
@@ -181,6 +182,40 @@ export const updateStaffs = (staffs) => ({
 export const deleteStaff = (id) => (dispatch) => {   
   return fetch(baseUrl + `staffs/${id}`,{
     method: 'DELETE',
+  })
+  .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        var error = new Error('Error ' + response.status + ': ' + response.statusText);
+        error.response = response;
+        throw error;
+      }
+    },
+    error => {
+          var errmess = new Error(error.message);
+          throw errmess;
+    })
+  .then(response => response.json())
+  .then(response => dispatch(updateStaffs(response)))
+  .catch(error => {alert(error.message)});
+};
+export const updateStaff = (staffid, name, doB, startDate, departmentId, salaryScale, annualLeave, overTime) => (dispatch) => {
+  return fetch(baseUrl + 'staffs/',{
+    method: 'PATCH',
+    body: JSON.stringify({
+      id: staffid,
+      name: name, 
+      doB: doB, 
+      startDate: startDate, 
+      departmentId: departmentId, 
+      salaryScale: salaryScale, 
+      annualLeave: annualLeave, 
+      overTime: overTime}),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    credentials: "same-origin"
   })
   .then(response => {
       if (response.ok) {

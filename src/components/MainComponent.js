@@ -9,7 +9,7 @@ import Deptdetail from './DeptdetailComponent';
 import { DEPARTMENTS, STAFFS } from '../shared/staffs';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postStaff, fetchStaffs, fetchDepartments, fetchSalaries,fetchDeptstaff, deleteStaff} from '../redux/ActionCreators';
+import { postStaff, fetchStaffs, fetchDepartments, fetchSalaries,fetchDeptstaff, deleteStaff, updateStaff} from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { baseUrl } from '../shared/baseUrl';
 
@@ -26,8 +26,9 @@ const mapDispatchToProps = dispatch => ({
   fetchStaffs: () => dispatch(fetchStaffs()),
   fetchDepartments: () => dispatch(fetchDepartments()),
   fetchSalaries: () => dispatch(fetchSalaries()),
-  deleteStaff: (id) => dispatch(deleteStaff(id))
-  //fetchDeptstaff: (department) => dispatch(fetchDeptstaff(department))
+  deleteStaff: (id) => dispatch(deleteStaff(id)),
+  fetchDeptstaff: (department) => dispatch(fetchDeptstaff(department)),
+  updateStaff: (staffid, name, doB, startDate, departmentId, salaryScale, annualLeave, overTime) => dispatch(updateStaff(staffid, name, doB, startDate, departmentId, salaryScale, annualLeave, overTime))
 });
 
 class Main extends Component {
@@ -42,7 +43,7 @@ class Main extends Component {
     render(){
         const StaffWithId = ({match}) => {
             return(
-                <StaffDetail departments = {this.props.departments} deleteStaff={deleteStaff} staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.staffId,10))[0]}/>
+                <StaffDetail departments = {this.props.departments} updateStaff={this.props.updateStaff} deleteStaff={this.props.deleteStaff} staff={this.props.staffs.staffs.filter((staff) => staff.id === parseInt(match.params.staffId,10))[0]}/>
             );
           };
         const DeptWithId = ({match}) => {
