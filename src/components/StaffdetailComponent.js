@@ -5,6 +5,7 @@ import { Loading } from './LoadingComponent';
 import { Card, CardImg, Button, Label, Input, Row, Col, Breadcrumb, BreadcrumbItem,
     ModalHeader, Modal, ModalBody} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { FadeTransform, Fade, Stagger} from 'react-animation-components';
 
 function UpdatenDel(props) {
     const [isOpen, setIsOpen] = useState(false);
@@ -168,17 +169,27 @@ function UpdatenDel(props) {
             <div className = "container">
             <div className = "row">
                 <div  className="col-12 col-lg-3 col-md-4 m-1">
-                <Card>
-                    <CardImg width="100%" top src={staff.image} alt={staff.name} />
-                </Card>
+                    <FadeTransform
+                    in
+                    transformProps={{
+                        exitTransform: 'scale(0.5) translateY(-50%)'
+                    }}>
+                        <Card>
+                            <CardImg width="100%" top src={staff.image} alt={staff.name} />
+                        </Card>
+                    </FadeTransform>
                 </div>
                 <div className="col-12 col-lg-8 col-md-7 m-1">
+                    <Stagger in>
+                        <Fade in>
                         <h3>Họ và tên: {staff.name}</h3>
                         <p>Ngày sinh: {dateFormat(staff.doB, "dd/mm/yyyy")}</p>
                         <p>Ngày vào công ty: {dateFormat(staff.startDate, "dd/mm/yyyy")}</p>
                         <p>Phòng ban: {department.name}</p>
                         <p>Số ngày nghỉ còn lại: {staff.annualLeave}</p>
                         <p>Số ngày đã làm thêm: {staff.overTime}</p>
+                        </Fade>
+                    </Stagger>
                 </div>
             </div>
             
