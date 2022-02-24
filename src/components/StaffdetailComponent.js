@@ -26,8 +26,8 @@ function UpdatenDel(props) {
     };
     return(
         <div>
-            <Button onClick={onDeleteStaff}>Xóa nhân viên</Button>
-            <Button onClick={toggleModal}>Thay đổi thông tin</Button>
+            <Button style ={{backgroundColor: '#0d6efd', color: 'white', margin: 3, marginLeft: 7}} onClick={onDeleteStaff}>Xóa nhân viên</Button>
+            <Button style ={{backgroundColor: '#0d6efd', color: 'white', margin: 3, marginLeft: 7}} onClick={toggleModal}>Thay đổi thông tin</Button>
             <Modal isOpen={isOpen}>
                 <ModalHeader toggle={toggleModal}>
                     Thay đổi thông tin
