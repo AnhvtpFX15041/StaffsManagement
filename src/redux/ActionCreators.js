@@ -12,10 +12,7 @@ export const staffsFailed = (errmess) => ({
   type: ActionTypes.STAFFS_FAILED,
   payload: errmess
 });
-export const addStaff = (staff) => ({
-    type: ActionTypes.ADD_STAFF,
-    payload: staff
-});
+
 export const addDepartments = (departments) => ({
   type: ActionTypes.ADD_DEPARTMENTS,
   payload: departments
@@ -50,7 +47,6 @@ export const deptstaffFailed = (errmess) => ({
   payload: errmess
 });
 export const fetchDeptstaff = (department) => (dispatch) => {
-  //dispatch(deptstaffLoading(true));
 
   return fetch(baseUrl + 'departments/' + department)
   .then(response => {
@@ -174,11 +170,6 @@ export const postStaff = (name, doB, startDate, departmentId, salaryScale, annua
     .then(response => dispatch(addStaffs(response)))
     .catch(error =>  { console.log('post staffs', error.message); alert('New staff could not be added\nError: '+error.message); });
 };
-
-export const updateStaffs = (staffs) => ({
-  type: ActionTypes.UPDATE_STAFFS,
-  payload: staffs
-});
 export const deleteStaff = (id) => (dispatch) => {   
   return fetch(baseUrl + `staffs/${id}`,{
     method: 'DELETE',
@@ -197,7 +188,7 @@ export const deleteStaff = (id) => (dispatch) => {
           throw errmess;
     })
   .then(response => response.json())
-  .then(response => dispatch(updateStaffs(response)))
+  .then(response => dispatch(addStaffs(response)))
   .catch(error => {alert(error.message)});
 };
 export const updateStaff = (staffid, name, doB, startDate, departmentId, salaryScale, annualLeave, overTime) => (dispatch) => {
@@ -231,6 +222,6 @@ export const updateStaff = (staffid, name, doB, startDate, departmentId, salaryS
           throw errmess;
     })
   .then(response => response.json())
-  .then(response => dispatch(updateStaffs(response)))
+  .then(response => dispatch(addStaffs(response)))
   .catch(error => {alert(error.message)});
 };

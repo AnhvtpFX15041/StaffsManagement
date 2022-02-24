@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import dateFormat from 'dateformat';
-import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';
-import { useHistory } from 'react-router-dom';
 import { Card, CardImg, Button, Label, Input, Row, Col, Breadcrumb, BreadcrumbItem,
     ModalHeader, Modal, ModalBody} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
@@ -22,7 +20,6 @@ function UpdatenDel(props) {
     const handleSubmit = (values) => {
         props.updateStaff(props.staff.id, values.staffname, values.doB, values.startDate, values.departmentId, values.salaryScale, values.annualLeave, values.overTime);
         toggleModal();
-        console.log( values.doB, values.startDate)
     };
     const toggleModal =() =>{
         setIsOpen(!isOpen)
@@ -33,7 +30,7 @@ function UpdatenDel(props) {
             <Button onClick={toggleModal}>Thay đổi thông tin</Button>
             <Modal isOpen={isOpen}>
                 <ModalHeader toggle={toggleModal}>
-                    Thêm nhân viên
+                    Thay đổi thông tin
                 </ModalHeader>
                 <ModalBody>
                     <LocalForm onSubmit={(values) => {handleSubmit(values)}}>
@@ -158,7 +155,7 @@ function UpdatenDel(props) {
                                  />
                             </Col>
                         </Row>
-                        <Input className="btn-primary col-2 col-md-4 col-lg-4" type="submit" value="Thêm"/>
+                        <Input className="btn-primary col-2 col-md-4 col-lg-4" type="submit" value="Cập nhật"/>
                     </LocalForm>
                 </ModalBody>
             </Modal>

@@ -1,12 +1,6 @@
-import { DEPARTMENTS } from '../shared/staffs';
+
 import * as ActionTypes from './ActionTypes';
 
-/*export const Departments = (state = DEPARTMENTS, action) => {
-    switch (action.type) {
-        default:
-          return state;
-      }
-};*/
 export const Departments = (state = { isLoading: true,
     errMess: null,
     departments:[]}, action) => {

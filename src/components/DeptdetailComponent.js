@@ -1,10 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { Card, CardText, CardImg, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
-import { baseUrl } from '../shared/baseUrl';
-import { Loading } from './LoadingComponent';
-//import { fetchDeptstaff } from '../redux/ActionCreators';
+
     
     function RenderStaff({staff}) {
         return(
@@ -18,13 +15,14 @@ import { Loading } from './LoadingComponent';
     }
     
     function Deptdetail (props) { 
-        const list = props.staffs.staffs.map((staff) => {
+        const list = props.staffs.map((staff) => {
             return (
                 <div key={staff.id} className="col-6 col-md-4 col-lg-2 m-0 mt-1">
                     <RenderStaff staff = {staff}/>
                 </div>
             );
         });
+        const department = props.departments.departments.filter((department) => { return department.id === props.staffs[0].departmentId})[0];
         return (
             <div className="container">
                 <div className="row">
@@ -32,8 +30,8 @@ import { Loading } from './LoadingComponent';
                         <div className="row">
                             <div style={{display: 'flex', justifyContent: 'left'}}>
                             <Breadcrumb>
-                                <BreadcrumbItem><Link to="/staffs">Phòng ban</Link></BreadcrumbItem>
-                                <BreadcrumbItem active>Marketing</BreadcrumbItem>
+                                <BreadcrumbItem><Link to="/department">Phòng ban</Link></BreadcrumbItem>
+                                <BreadcrumbItem active>{department.name}</BreadcrumbItem>
                             </Breadcrumb>
                             </div>
                         </div>    

@@ -1,4 +1,4 @@
-export const ADD_STAFF = 'ADD_STAFF';
+
 export const ADD_STAFFS = 'ADD_STAFFS';
 export const STAFFS_LOADING = 'STAFF_LOADING';
 export const STAFFS_FAILED = 'STAFF_FAILED';
@@ -11,4 +11,3 @@ export const SALARIES_FAILED = 'SALARIES_FAILED';
 export const ADD_DEPTSTAFF = 'ADD_DEPTSTAFF';
 export const DEPTSTAFF_LOADING = 'DEPTSTAFF_LOADING';
 export const DEPTSTAFF_FAILED = 'DEPTSTAFF_FAILED';
-export const UPDATE_STAFFS = 'UPDATE_STAFFS';
