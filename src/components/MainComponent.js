@@ -36,6 +36,7 @@ class Main extends Component {
     this.props.fetchStaffs();
     this.props.fetchDepartments();
     this.props.fetchSalaries();
+    console.log('done');
   };
 
     render(){
