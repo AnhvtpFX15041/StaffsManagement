@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { Deptstaff } from './departmentstaff';
 
+
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
@@ -20,3 +21,5 @@ export const ConfigureStore = () => {
 
     return store;
 }
+
+

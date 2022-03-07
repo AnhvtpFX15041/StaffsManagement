@@ -16,3 +16,4 @@ export const Salaries = (state = { isLoading: true,
             return state;
     }
 };
+
